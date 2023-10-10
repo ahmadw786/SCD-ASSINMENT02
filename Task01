@@ -1,0 +1,117 @@
+import java.util.EmptyStackException;
+import java.util.Scanner;
+
+class Node<T> {
+    T data;
+    Node<T> next;
+
+    public Node(T data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class GenericStack<T> {
+    private Node<T> top;
+    private int size;
+    private int capacity;
+
+    // Constructor to initialize the stack with a given capacity
+    public GenericStack(int capacity) {
+        this.capacity = capacity;
+        this.size = 0;
+    }
+
+    // Method to push an item of type T onto the stack
+    public void push(T item) {
+        if (size == capacity) {
+            throw new StackOverflowError("Stack is full. Cannot push " + item);
+        }
+
+        Node<T> newNode = new Node<>(item);
+        newNode.next = top;
+        top = newNode;
+        size++;
+    }
+
+    // Method to pop and return the top item from the stack
+    public T pop() {
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
+
+        T item = top.data;
+        top = top.next;
+        size--;
+        return item;
+    }
+
+    // Method to check if the stack is empty
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    // Method to get the number of elements in the stack
+    public int size() {
+        return size;
+    }
+}
+
+public class Task01 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter Stack Size: ");
+        int capacity = scanner.nextInt();
+        GenericStack<Object> stack = new GenericStack<>(capacity);
+
+        System.out.print("Enter Data Type (Integer, String, or Float): ");
+        String dataType = scanner.next();
+
+        System.out.println("Enter Stack Values (separated by spaces): ");
+        for (int i = 0; i < capacity; i++) {
+            if (dataType.equals("Integer")) {
+                int item = scanner.nextInt();
+                stack.push(item);
+            } else if (dataType.equals("String")) {
+                String item = scanner.next();
+                stack.push(item);
+            } else if (dataType.equals("Float")) {
+                float item = scanner.nextFloat();
+                stack.push(item);
+            } else {
+                System.out.println("Invalid data type. Supported types: Integer, String, Float.");
+                break;
+            }
+        }
+
+        System.out.println("Perform Stack Operations");
+
+        while (true) {
+            String operation = scanner.next();
+            if (operation.equals("pop")) {
+                try {
+                    Object popped = stack.pop();
+                    System.out.println("Popped: " + popped);
+                } catch (EmptyStackException e) {
+                    System.out.println("Stack is empty. Cannot pop.");
+                }
+            } else if (operation.equals("size")) {
+                System.out.println("Stack size: " + stack.size());
+            } else if (operation.equals("isEmpty")) {
+                if (stack.isEmpty()) {
+                    System.out.println("Stack is empty.");
+                } else {
+                    System.out.println("Stack is not empty.");
+                }
+            } else if (operation.equals("Quit")) {
+                System.out.println("Program Exited!");
+                break;
+            } else {
+                System.out.println("Invalid operation.");
+            }
+        }
+
+        scanner.close();
+    }
+}
