@@ -20,3 +20,45 @@ class FirstNonRepeatingStream {
             order.add(c);
         }
     }
+
+
+public char getFirstNonRepeating() {
+        while (!order.isEmpty() && frequency.get(order.peek()) > 1) {
+            order.poll();
+        }
+
+        if (order.isEmpty()) {
+            return '-';
+        } else {
+            return order.peek();
+        }
+    }
+}
+
+public class Task02 {
+    public static void main(String[] args) {
+        FirstNonRepeatingStream stream1 = new FirstNonRepeatingStream();
+        stream1.add('a');
+        stream1.add('b');
+        stream1.add('a');
+        System.out.println("Stream: ['a','b','a']");
+        System.out.println("First Non-Repeating Character: " + stream1.getFirstNonRepeating());
+
+        FirstNonRepeatingStream stream2 = new FirstNonRepeatingStream();
+        stream2.add('a');
+        stream2.add('b');
+        stream2.add('a');
+        stream2.add('b');
+        System.out.println("\nStream: ['a','b','a','b']");
+        System.out.println("First Non-Repeating Character: " + stream2.getFirstNonRepeating());
+
+        FirstNonRepeatingStream stream3 = new FirstNonRepeatingStream();
+        stream3.add('a');
+        stream3.add('b');
+        stream3.add('b');
+        System.out.println("\nStream: ['a','b','b']");
+        System.out.println("First Non-Repeating Character: " + stream3.getFirstNonRepeating());
+    }
+}
+
+
