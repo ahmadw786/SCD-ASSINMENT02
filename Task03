@@ -1,0 +1,32 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Interval {
+    int start;
+    int end;
+
+    Interval(int start, int end) {
+        this.start = start;
+        this.end = end;
+    }
+}
+
+public class Task03 {
+    public static void mergeIntervals(List<Interval> intervals) {
+        if (intervals == null || intervals.isEmpty()) {
+            return;
+        }
+
+        int currentIndex = 0; // Index to keep track of the current interval position
+
+        // Create a mutable ArrayList to allow modification
+        List<Interval> mutableIntervals = new ArrayList<>(intervals);
+
+        // Iterate through the sorted list of intervals starting from the second interval
+        for (int i = 1; i < mutableIntervals.size(); i++) {
+            Interval current = mutableIntervals.get(currentIndex);
+            Interval next = mutableIntervals.get(i);
+
+            if (current.end >= next.start) {
+                // Merge overlapping intervals by updating the end time of the current interval
+                current.end = Math.max(current.end, next.end);
