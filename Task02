@@ -22,18 +22,15 @@ class FirstNonRepeatingStream {
     }
 
 
-public char getFirstNonRepeating() {
-        while (!order.isEmpty() && frequency.get(order.peek()) > 1) {
-            order.poll();
-        }
-
-        if (order.isEmpty()) {
-            return '-';
+ public char getFirstNonRepeating() {
+      
+        Iterator<Character> iterator = uniqueCharacters.iterator();
+        if (iterator.hasNext()) {
+            return iterator.next();
         } else {
-            return order.peek();
+            return '-';
         }
     }
-}
 
 public class Task02 {
     public static void main(String[] args) {
